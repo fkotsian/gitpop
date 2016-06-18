@@ -4,7 +4,7 @@
   "description": "A dynamic list of the 100 most starred Github repos, and their top contributor.",
   "main": "server.js",
   "scripts": {
-    "test": "mocha",
+    "test": "mocha --recursive",
     "start": "webpack -w & node server.js"
   },
   "repository": {
