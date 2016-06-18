@@ -2,9 +2,10 @@
   "name": "gitpop",
   "version": "1.0.0",
   "description": "A dynamic list of the 100 most starred Github repos, and their top contributor.",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "start": "webpack -w & node server.js"
   },
   "repository": {
     "type": "git",
