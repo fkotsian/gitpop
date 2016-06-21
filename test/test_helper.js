@@ -5,6 +5,9 @@ require('mocha');
 const chai = require('chai');
 const expect = chai.expect;
 const sinon = require('sinon');
+const React = require('react');
+const ReactDOM = require('react-dom');
+
 let sinonChai = require('sinon-chai');
 let chaiAsPromised = require('chai-as-promised');
 
@@ -17,7 +20,9 @@ before(function() {
   globals = {
     chai,
     expect,
-    sinon
+    sinon,
+    React,
+    ReactDOM,
   };
 
   Object.assign(global, globals);
