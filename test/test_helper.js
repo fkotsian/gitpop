@@ -30,6 +30,8 @@ before(function() {
   };
 
   Object.assign(global, globals);
+
+  console.error = (err) => { throw new Error(err); };
 });
 
 after(function() {
