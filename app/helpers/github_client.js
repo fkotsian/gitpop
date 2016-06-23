@@ -9,9 +9,10 @@ const GithubClient = {
                      const repoItemsPromise = GithubHelper.fetch(TOP_HUNDRED_REPOS_PATH)
                        .then((repoData) => GithubParser.repoItems(repoData) )
                        .then((rawRepoItems) => {
-                         return rawRepoItems.map(
-                           (rawRepoItem) => GithubComposer.composeRepo(rawRepoItem)
-                         )
+                         return Promise.all(
+                           rawRepoItems.map(
+                             (rawRepoItem) => GithubComposer.composeRepo(rawRepoItem)
+                         ))
                        });
 
                      return repoItemsPromise;
