@@ -21,10 +21,12 @@
     "babel-plugin-transform-runtime": "^6.9.0",
     "chai": "^3.5.0",
     "chai-as-promised": "^5.3.0",
+    "chance": "^1.0.3",
     "enzyme": "^2.3.0",
     "fetch-mock": "^4.5.4",
     "mocha": "^2.5.3",
     "react-addons-test-utils": "^15.1.0",
+    "rosie": "^1.6.0",
     "sinon": "^1.17.4",
     "sinon-chai": "^2.8.0",
     "testdom": "^2.0.0"
