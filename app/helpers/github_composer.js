@@ -6,7 +6,7 @@ function contributorsUrlPath(contributorsUrl) {
 
 function onContributorFetchError(err) {
   console.warn(err);
-  const unknownContributor = { login: 'Unable to fetch contributor' };
+  const unknownContributor = { login: 'Unable to fetch top contributor' };
   return [unknownContributor];
 };
 
