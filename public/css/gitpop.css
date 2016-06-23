@@ -1,3 +1,10 @@
+#app-container {
+  margin-left: 5%;
+  margin-right: 5%;
+  max-width: 90%;
+  min-width: 496px;
+}
+
 .repo-item {
   margin-top: 1rem;
   margin-bottom: 1rem;
