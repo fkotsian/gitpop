@@ -7,7 +7,7 @@ const TOP_HUNDRED_REPOS_PATH = '/search/repositories?q=stars\:\>1\&s=stars\&page
 const GithubClient = {
   topHundredRepos: function() {
                      const repoItemsPromise = GithubHelper.fetch(TOP_HUNDRED_REPOS_PATH)
-                       .then((repoData) => GithubParser.repoItems(repoData) )
+                       .then((repoData) => GithubParser.repoItems(repoData))
                        .then((rawRepoItems) => {
                          return Promise.all(
                            rawRepoItems.map(
