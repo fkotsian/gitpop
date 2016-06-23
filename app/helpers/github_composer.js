@@ -22,13 +22,21 @@ const GithubComposer = {
                    .then((contributors) => {
                      const name = rawRepoData.name;
                      const stars = rawRepoData.stargazers_count;
+                     const description = rawRepoData.description;
+                     const avatarUrl = rawRepoData.owner.avatar_url;
+                     const htmlUrl = rawRepoData.html_url;
                      const topContributor = contributors[0];
                      const topContributorName = topContributor.login;
+                     const topContributorUrl = topContributor.html_url;
 
                      return {
                        name: name,
                        stars: stars,
-                       topContributor: topContributorName
+                       description: description,
+                       avatarUrl: avatarUrl,
+                       htmlUrl: htmlUrl,
+                       topContributor: topContributorName,
+                       topContributorUrl: topContributorUrl
                      };
                    });
 

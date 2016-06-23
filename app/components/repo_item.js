@@ -13,22 +13,26 @@ class RepoItem extends React.Component {
   }
 
   render() {
-    const {name, stars, topContributor} = this.props;
-
+    const {name, stars, description, avatarUrl, htmlUrl, topContributor, topContributorUrl} = this.props;
+    
     return (
       <li className="repo-item">
-        <Thumbnail src="https://avatars.githubusercontent.com/u/69631?v=3" alt={name} >
-          <div className="repo-name">
-            <h4>
-              <a href={'https://github.com/' + name + '/' + name}>{name}</a>
+        <Thumbnail src={avatarUrl} alt={name}>
+          <div>
+            <h4 className="repo-name">
+              <a className="repo-link" href={htmlUrl}>{name}</a>
             </h4>
+            <p className="repo-description">{description}</p>
             <p className="repo-stars">
               <span className="glyphicon glyphicon-star" /> {stars}
             </p>
+            <span className="repo-top-contributor">
+              <p><span className="glyphicon glyphicon-user" />
+                <span>  </span>
+                <a className="repo-top-contributor-link" href={topContributorUrl}>{topContributor}</a>
+              </p>
+            </span>
           </div>
-          <span className="repo-top-contributor">
-            <p><span className="glyphicon glyphicon-user" />  {topContributor}</p>
-          </span>
         </Thumbnail>
       </li>
     );

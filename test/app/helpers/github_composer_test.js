@@ -29,13 +29,17 @@ describe('GithubComposer', function() {
         expect(fetchContributorsSpy).to.have.been.calledWith(contributorsUrlPath);
       });
 
-      it('returns an object containing the name, stars, and top contributor for the repo', function() {
+      it('returns an object containing the name, stars, and top contributor for the repo, as well as some supplementary properties', function() {
         const repoObj = GithubComposer.composeRepo(singleRepoData);
 
         return expect(repoObj).to.eventually.become({
           name: 'FreeCodeCamp',
           stars: 144601,
-          topContributor: 'QuincyLarson'
+          description: "The https://FreeCodeCamp.com open source codebase and curriculum. Learn to code and help nonprofits.",
+          avatarUrl: "https://avatars.githubusercontent.com/u/9892522?v=3",
+          htmlUrl: "https://github.com/FreeCodeCamp/FreeCodeCamp",
+          topContributor: 'QuincyLarson',
+          topContributorUrl: "https://github.com/QuincyLarson"
         });
       });
     });

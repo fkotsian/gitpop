@@ -12,8 +12,17 @@ class RepoList extends React.Component {
 
   render() {
     const {repoItems} = this.props;
-    const repoItemsList = repoItems.map(({name, stars, topContributor}) => 
-        (<RepoItem key={name} name={name} stars={stars} topContributor={topContributor} />)
+    const repoItemsList = repoItems.map(
+        ({name, stars, description, avatarUrl, htmlUrl, topContributor, topContributorUrl}) => {
+          return (<RepoItem key={name}
+                            name={name}
+                            stars={stars}
+                            description={description}
+                            avatarUrl={avatarUrl}
+                            htmlUrl={htmlUrl}
+                            topContributorUrl={topContributorUrl}
+                            topContributor={topContributor} />);
+        }
     );
 
     return (
