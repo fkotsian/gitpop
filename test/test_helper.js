@@ -9,7 +9,7 @@ const expect = chai.expect;
 const sinon = require('sinon');
 const React = require('react');
 const ReactDOM = require('react-dom');
-const {shallow, mount} = require('enzyme');
+const {shallow, mount, render} = require('enzyme');
 
 let sinonChai = require('sinon-chai');
 let chaiAsPromised = require('chai-as-promised');
@@ -26,7 +26,8 @@ before(function() {
     React,
     ReactDOM,
     shallow,
-    mount
+    mount,
+    render
   };
 
   Object.assign(global, globals);
