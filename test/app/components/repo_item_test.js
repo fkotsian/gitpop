@@ -15,7 +15,7 @@ describe('<RepoItem />', function() {
 
   it('displays an icon with the number of stars the repo has', function() {
     expect(wrapper.find('.repo-stars')).to.have.length(1);
-    expect(wrapper.find('.repo-stars-icon')).to.have.length(1);
+    expect(wrapper.find('.glyphicon-star')).to.have.length(1);
   });
 
   it('displays the top contributor to the repo', function() {
