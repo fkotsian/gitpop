@@ -6,7 +6,7 @@ const BASE_ERR_MESSAGE = 'Error fetching from Github API: ';
 function onApiError(err) {
   let apiErr = new Error(`${BASE_ERR_MESSAGE}${err.message}`);
   apiErr.status = err.response.status;
-  return apiErr;
+  throw apiErr;
 }
 
 const GithubHelper = {

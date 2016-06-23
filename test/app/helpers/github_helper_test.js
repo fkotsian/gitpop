@@ -26,14 +26,12 @@ describe('GithubHelper', function() {
       });
 
       it('raises an informative error', function() {
-        let err = GithubHelper.fetch(nonexistentPath);
-        let errMessage = err.then(err => err.message);
-        let errStatus = err.then(err => err.status);
-        
-        return Promise.all([
-          expect(errMessage).to.eventually.match(/Error fetching from Github API:/),
-          expect(errStatus).to.eventually.equal(404)
-        ]);
+        let err = GithubHelper.fetch(nonexistentPath).catch(
+          (err) => {
+            expect(err.message).to.match(/Error fetching from Github API:/);
+            expect(err.status).to.equal(404);
+          }
+        );
       });
     });
     
