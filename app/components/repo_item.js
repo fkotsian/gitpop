@@ -1,21 +1,12 @@
 const React = require('react');
 const {Thumbnail} = require('react-bootstrap');
-const GithubHelper = require('../helpers/github_helper');
+const GithubClient = require('../helpers/github_client');
 
 const propTypes = {
   name: React.PropTypes.string.isRequired,
   stars: React.PropTypes.number.isRequired,
 };
 
-function contributorsUrlPath(contributorsUrl) {
-  return contributorsUrl.match(/(\/repos.*\/contributors)/)[1];
-};
-
-function onContributorFetchError(err) {
-  console.warn(err);
-  const unknownContributor = { login: 'Unable to fetch top contributor' };
-  return [unknownContributor];
-};
 
 class RepoItem extends React.Component {
   constructor(props) {
@@ -27,25 +18,17 @@ class RepoItem extends React.Component {
   }
 
   componentDidMount() {
-    const contributorsUrl = this.props.contributorsUrl;
-    const contributorsPath = contributorsUrlPath(contributorsUrl);
-    const contributorsPathQuery = `${contributorsPath}?page=1\&per_page=1`;
-
-    GithubHelper.fetch(contributorsPathQuery)
-      .catch(onContributorFetchError)
-      .then((contributors) => {
-        const topContributor = contributors[0];
-        const topContributorName = topContributor.login;
-        const topContributorUrl = topContributor.html_url;
-
-        this.state.topContributor = topContributorName;
-        this.state.topControbutorUrl = topContributorUrl;
+    GithubClient.topContributorForRepo(this.props.contributorsUrl).then(
+      ({topContributor, topContributorUrl}) => {
+        this.state.topContributor = topContributor;
+        this.state.topContributorUrl = topContributorUrl;
         this.setState(this.state);
-      });
+      }
+    );
   };
 
   render() {
-    const {name, stars, description, avatarUrl, htmlUrl } = this.props;
+    const {name, stars, description, avatarUrl, htmlUrl, contributorsUrl} = this.props;
 
     return (
       <li className="repo-item">

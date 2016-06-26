@@ -61,4 +61,38 @@ describe('GithubClient', function() {
       );
     });
   });
+
+  describe('fetching the top contributor for a repo', function() {
+    const contributorsUrl = 'https://api.github.com/repos/FreeCodeCamp/FreeCodeCamp/contributors';
+    const contributorsPathQuery = '/repos/FreeCodeCamp/FreeCodeCamp/contributors?page=1&per_page=1';
+    const contributorsData = require('../../fixtures/top_contributor_free_code_camp.js');
+    const contributorsDataPromise = Promise.resolve(contributorsData);
+
+    let fetchTopContributorSpy;
+
+    beforeEach(function() {
+      fetchTopContributorSpy = sinon.stub(GithubHelper, 'fetch')
+        .withArgs(contributorsPathQuery)
+        .returns(contributorsDataPromise);
+    });
+
+    afterEach(function() {
+      GithubHelper.fetch.restore();
+    });
+
+    it('queries the Github API', function() {
+      GithubClient.topContributorForRepo(contributorsUrl).then(
+        (_) => expect(fetchTopContributorSpy).to.have.been.called
+      );
+    });
+
+    it('returns an object containing the top contributor and her profile URL', function() {
+      GithubClient.topContributorForRepo(contributorsUrl).then(
+        (contributorData) => expect(contributorData).to.equal({
+          "topContributor": "QuincyLarson",
+          "topContributorUrl": "https://github.com/QuincyLarson"
+        })
+      );
+    });
+  });
 });

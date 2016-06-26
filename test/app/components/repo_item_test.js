@@ -1,11 +1,10 @@
 require('../../test_helper');
 
 const RepoItem = require('../../../app/components/repo_item');
-const GithubHelper = require('../../../app/helpers/github_helper');
+const GithubClient = require('../../../app/helpers/github_client');
 
 describe('<RepoItem />', function() {
   const contributorsUrl = 'https://api.github.com/repos/FreeCodeCamp/FreeCodeCamp/contributors?page=1&per_page=1';
-  const contributorsUrlPath = '/repos/FreeCodeCamp/FreeCodeCamp/contributors?page=1&per_page=1';
   let fetchContributorsSpy;
   let wrapper;
 
@@ -29,29 +28,32 @@ describe('<RepoItem />', function() {
   });
 
   describe('on component mount', function() {
-    const rawContributorsData = require('../../fixtures/top_contributor_free_code_camp');
-    const rawContributorsDataPromise = Promise.resolve(rawContributorsData);
+    const topContributorData = {
+      topContributor: 'QuincyLarson',
+      topContributorUrl: 'https://github.com/QuincyLarson'
+    };
+    const topContributorDataPromise = Promise.resolve(topContributorData);
+    let renderSpy;
 
     beforeEach(function() {
-      fetchContributorsSpy = sinon.stub(GithubHelper, 'fetch');
-      fetchContributorsSpy.withArgs(contributorsUrlPath).returns(
-        rawContributorsDataPromise
-      );
+      fetchContributorsSpy = sinon.stub(GithubClient, 'topContributorForRepo');
+      fetchContributorsSpy.withArgs(contributorsUrl).returns(topContributorDataPromise);
+      renderSpy = sinon.spy(RepoItem.prototype, 'render');
     });
 
     afterEach(function() {
-      GithubHelper.fetch.restore();
+      GithubClient.topContributorForRepo.restore();
+      RepoItem.prototype.render.restore();
     });
 
     it('fetches the repo contributor data', function() {
       mount(<RepoItem name={'item-1'} stars={5} contributorsUrl={contributorsUrl} />);
 
       expect(fetchContributorsSpy).to.have.been.called;
-      expect(fetchContributorsSpy).to.have.been.calledWith(contributorsUrlPath);
+      expect(fetchContributorsSpy).to.have.been.calledWith(contributorsUrl);
     });
 
     it('rerenders the component and displays the top contributor', function() {
-      let renderSpy = sinon.spy(RepoItem.prototype, 'componentDidMount');
       let topContributor = wrapper.find('.repo-top-contributor-link').text();
 
       Promise.resolve(
