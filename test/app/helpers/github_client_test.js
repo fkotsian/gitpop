@@ -20,8 +20,7 @@ describe('GithubClient', function() {
         .withArgs(topHundredReposPath)
         .returns(rawRepoDataPromise);
       parseSpy = sinon.spy(GithubParser, 'repoItems');
-      composeSpy = sinon.stub(GithubComposer, 'composeRepo')
-        .returns({ name: 'composed-repo', stars: 5, topContributor: 'top-user' });
+      composeSpy = sinon.spy(GithubComposer, 'composeRepo')
     });
 
     afterEach(function() {
@@ -57,7 +56,7 @@ describe('GithubClient', function() {
           const repoItem = repoItems[0];
           expect(repoItem).to.have.property('name');
           expect(repoItem).to.have.property('stars');
-          expect(repoItem).to.have.property('topContributor');
+          expect(repoItem).to.have.property('contributorsUrl');
         }
       );
     });

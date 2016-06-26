@@ -3,9 +3,9 @@ const RepoList = require('../../../app/components/repo_list');
 
 describe('<RepoList />', function() {
   let repoItemData = [
-    { name: 'repo-1', stars: 5, topContributor: 'contributor-A' },
-    { name: 'repo-2', stars: 50, topContributor: 'contributor-B' },
-    { name: 'repo-3', stars: 500, topContributor: 'contributor-C' },
+    { name: 'repo-1', stars: 5, contributorsUrl: 'https://api.github.com/repos/owner/repo-1/contributors' },
+    { name: 'repo-2', stars: 50, contributorsUrl: 'https://api.github.com/repos/owner/repo-2/contributors' },
+    { name: 'repo-3', stars: 500, contributorsUrl: 'https://api.github.com/repos/owner/repo-3/contributors' },
   ];
 
   it('renders a list of Repos', function() {

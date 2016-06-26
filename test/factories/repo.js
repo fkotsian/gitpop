@@ -5,5 +5,5 @@ const generator = new Chance();
 module.exports = new Factory()
   .attr('name', () => generator.word({length: 8}))
   .attr('stars', () => Math.floor(Math.random() * 10000))
-  .attr('topContributor', () => generator.first());
+  .attr('contributorsUrl', () => `https:\/\/api.github.com/repos/${generator.word({length: 8})}/${generator.word({length: 8})}/contributors`);
 

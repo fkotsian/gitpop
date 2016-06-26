@@ -13,15 +13,14 @@ class RepoList extends React.Component {
   render() {
     const {repoItems} = this.props;
     const repoItemsList = repoItems.map(
-        ({name, stars, description, avatarUrl, htmlUrl, topContributor, topContributorUrl}) => {
+        ({name, stars, description, avatarUrl, htmlUrl, contributorsUrl}) => {
           return (<RepoItem key={name}
                             name={name}
                             stars={stars}
                             description={description}
                             avatarUrl={avatarUrl}
                             htmlUrl={htmlUrl}
-                            topContributorUrl={topContributorUrl}
-                            topContributor={topContributor} />);
+                            contributorsUrl={contributorsUrl} />);
         }
     );
 
