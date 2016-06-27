@@ -1,31 +1,17 @@
 const React = require('react');
 const {Thumbnail} = require('react-bootstrap');
-const GithubClient = require('../helpers/github_client');
-const TopContributor = require('./top_contributor');
+const TopContributorWrapper = require('./top_contributor_wrapper');
 
 const propTypes = {
   name: React.PropTypes.string.isRequired,
   stars: React.PropTypes.number.isRequired,
+  contributorsUrl: React.PropTypes.string.isRequired
 };
 
 class RepoItem extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      topContributor: "Waiting to fetch top contributor...",
-      topContributorUrl: "#"
-    };
   }
-
-  componentDidMount() {
-    GithubClient.topContributorForRepo(this.props.contributorsUrl).then(
-      ({topContributor, topContributorUrl}) => {
-        this.state.topContributor = topContributor;
-        this.state.topContributorUrl = topContributorUrl;
-        this.setState(this.state);
-      }
-    );
-  };
 
   render() {
     const {name, stars, description, avatarUrl, htmlUrl, contributorsUrl} = this.props;
@@ -41,8 +27,7 @@ class RepoItem extends React.Component {
             <p className="repo-stars">
               <span className="glyphicon glyphicon-star" /> {stars}
             </p>
-            <TopContributor name={this.state.topContributor} 
-                            url={this.state.topContributorUrl} />
+            <TopContributorWrapper contributorsUrl={contributorsUrl} />
           </div>
         </Thumbnail>
       </li>
