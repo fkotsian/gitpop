@@ -1,12 +1,12 @@
 const React = require('react');
 const {Thumbnail} = require('react-bootstrap');
 const GithubClient = require('../helpers/github_client');
+const TopContributor = require('./top_contributor');
 
 const propTypes = {
   name: React.PropTypes.string.isRequired,
   stars: React.PropTypes.number.isRequired,
 };
-
 
 class RepoItem extends React.Component {
   constructor(props) {
@@ -41,12 +41,8 @@ class RepoItem extends React.Component {
             <p className="repo-stars">
               <span className="glyphicon glyphicon-star" /> {stars}
             </p>
-            <span className="repo-top-contributor">
-              <p><span className="glyphicon glyphicon-user" />
-                <span>  </span>
-                <a className="repo-top-contributor-link" href={this.state.topContributorUrl}>{this.state.topContributor}</a>
-              </p>
-            </span>
+            <TopContributor name={this.state.topContributor} 
+                            url={this.state.topContributorUrl} />
           </div>
         </Thumbnail>
       </li>

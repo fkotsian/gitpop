@@ -1,11 +1,14 @@
 require('../../test_helper');
 
 const RepoItem = require('../../../app/components/repo_item');
+const TopContributor = require('../../../app/components/top_contributor');
 const GithubClient = require('../../../app/helpers/github_client');
 
 describe('<RepoItem />', function() {
   const contributorsUrl = 'https://api.github.com/repos/FreeCodeCamp/FreeCodeCamp/contributors?page=1&per_page=1';
   let fetchContributorsSpy;
+  let renderTopContributorSpy;
+  let renderSpy;
   let wrapper;
 
   describe('required fields', function() {
@@ -21,9 +24,21 @@ describe('<RepoItem />', function() {
       expect(wrapper.find('.repo-stars')).to.have.length(1);
       expect(wrapper.find('.glyphicon-star')).to.have.length(1);
     });
+  });
 
-    it('displays the top contributor to the repo', function() {
-      expect(wrapper.find('.repo-top-contributor')).to.have.length(1);
+  describe('child components', function() {
+
+    beforeEach(function() {
+      renderTopContributorSpy = sinon.spy(TopContributor.prototype, 'render');
+    });
+
+    afterEach(function() {
+      TopContributor.prototype.render.restore();
+    });
+
+    it('renders the top contributor for the repo', function() {
+      wrapper = mount(<RepoItem name={'item-1'} stars={5} contributorsUrl={contributorsUrl} />);
+      expect(renderTopContributorSpy).to.have.been.called;
     });
   });
 
@@ -33,7 +48,6 @@ describe('<RepoItem />', function() {
       topContributorUrl: 'https://github.com/QuincyLarson'
     };
     const topContributorDataPromise = Promise.resolve(topContributorData);
-    let renderSpy;
 
     beforeEach(function() {
       fetchContributorsSpy = sinon.stub(GithubClient, 'topContributorForRepo');
